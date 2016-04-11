@@ -35,7 +35,7 @@ class IntervalTreeSuite extends FunSuite {
 			tree.insert(region, start)
 		}
 		assert(tree.size == 6)
-		
+
 	}
 
 
@@ -236,7 +236,22 @@ class IntervalTreeSuite extends FunSuite {
 		val filtTree = tree.mapValues(elem => elem._2 + 3L)
 		assert(filtTree.size == 3)
 		assert(filtTree.get()(0) == 5)
-	
+
+	}
+
+	test("duplicate objects") {
+
+		//simulates putting block sizes
+		val tree = new IntervalTree[ReferenceRegion, Long]()
+
+		val id = 1L
+		val region = new ReferenceRegion("chr1",  0L, 10L)
+		tree.insert(region, 4L)
+		tree.insert(region, 2L)
+
+		val filtTree = tree.search(region)
+		assert(filtTree.size == 2)
+
 	}
 
 }
